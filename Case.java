@@ -23,8 +23,8 @@ public class Case{
         return this.contientUneBombe;
     }
 
-    public void estDecouverte(){
-        this.estDecouverte = true;
+    public boolean estDecouverte(){
+        return this.estDecouverte;
     }
 
     public boolean estMarquee(){
@@ -32,13 +32,11 @@ public class Case{
     }
 
     public boolean reveler(){
-        if(this.estDecouverte){
-            return false;
-        }
-        else{
+        if(!this.estMarquee){
             this.estDecouverte = true;
-            return true;
+            return this.contientUneBombe;
         }
+        return false;
     }
 
     public void marquer(){
