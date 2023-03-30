@@ -36,8 +36,6 @@ public class Plateau {
       }
    }
 
-/**  */
-
    protected void poseDesBombesAleatoirement(){
         Random generateur = new Random();
         for (int x = 0; x < this.getNbLignes(); x++){
@@ -59,7 +57,7 @@ public class Plateau {
          for (int j = 0; j < nbColonnes; j++){
             if (i == numLigne){
                if (j == numColonne){
-                  return this.lePlateau.get(i+j);
+                  return this.lePlateau.get(i*nbColonnes+j);
                }
             }  
          }
@@ -70,7 +68,15 @@ public class Plateau {
    public int getNbCases(){return this.lePlateau.size();}
 
    public void poseBombe(int x, int y){
-      
+      for (int ligne = 0; ligne < nbLignes; ligne++){
+         for (int colonne = 0; colonne < nbColonnes; colonne++){
+            if (ligne == x){
+               if (colonne == y){
+                  lePlateau.get(ligne*nbColonnes+colonne).poseBombe();
+               }
+            }
+         }
+      }
    }
 
    public void reset(){
