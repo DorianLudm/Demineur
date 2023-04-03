@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Demineur extends Plateau{
     private boolean gameOver;
     private int score;
@@ -15,9 +17,10 @@ public class Demineur extends Plateau{
         super.lePlateau.get(caseAReveler).reveler();
     }
 
-    public boolean marquer(int x, int y){
+    public void marquer(int x, int y){
         int caseAMarquer = x*super.getNbColonnes()+y;
         super.lePlateau.get(caseAMarquer).marquer();
+
     }
 
     public boolean estGagnee(){
@@ -53,10 +56,20 @@ public class Demineur extends Plateau{
     }
 
     public void affiche(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("JEU DU DÉMINEUR");
+        int cpt_marques = 0;
+        for (CaseIntelligente c : super.lePlateau){
 
+        }
+        System.out.println("Nombre de bombes : " + super.getNbTotalBombes());
+        System.out.println("Nombre de cases marquées : ");
+        System.out.println("Nombre de cases découvertes : ");
+        String instruction = input.nextLine();
     }
 
     public void nouvellePartie(){
-
+        reset();
+        new Demineur(super.getNbLignes(), super.getNbColonnes(), super.getNbTotalBombes());
     }
 }

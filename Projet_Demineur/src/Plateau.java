@@ -7,7 +7,7 @@ public class Plateau {
    private int nbColonnes;
    private int pourcentageDeBombes;
    private int nbBombes;
-   private List<CaseIntelligente> lePlateau;
+   protected List<CaseIntelligente> lePlateau;
 
    public Plateau(int nbLignes, int nbColonnes, int pourcentage){
       this.nbLignes = nbLignes;
@@ -25,13 +25,40 @@ public class Plateau {
    }
 
    private void rendLesCasesIntelligentes(){
-      for (int ligne = 0; ligne < nbLignes; ligne++){
-         for (int colonne = 0; colonne < nbColonnes; colonne++){
-            for (int ligneC = 0; ligneC < nbLignes; ligneC++){
-               for (int colonneC = 0; colonneC < nbColonnes; colonneC++){
-                  
+      for (int ligneCaseElem = 0; ligneCaseElem < this.nbLignes; ligneCaseElem++){
+         for (int colonneCaseElem = 0; colonneCaseElem < this.nbLignes; colonneCaseElem++){
+            for (int ligneCaseVoisine = 0; ligneCaseVoisine < this.nbLignes; ligneCaseVoisine++){
+               for (int colonneCaseVoisine = 0; colonneCaseVoisine < this.nbLignes; colonneCaseVoisine++){
+                  boolean estVoisine = false;
+                  if(ligneCaseElem == ligneCaseVoisine){ /**Test si les deux cases sont sur la même ligne*/
+                     if(colonneCaseElem - 1 >= 0 && colonneCaseElem - 1 == colonneCaseVoisine){
+                        estVoisine = true;
+                     }
+                     if(colonneCaseElem + 1 <= this.nbColonnes && colonneCaseElem + 1 == colonneCaseVoisine){
+                        estVoisine = true;
+                     }
+                  }
+                  else{
+                     if(colonneCaseElem == colonneCaseVoisine){ /**Test si les deux cases sont sur la même colonne*/
+                        if(ligneCaseElem - 1 >= 0 && ligneCaseElem - 1 == ligneCaseVoisine){
+                           estVoisine = true;
+                        }
+                        if(ligneCaseElem + 1 <= this.nbLignes && ligneCaseElem + 1 == ligneCaseVoisine){
+                           estVoisine = true;
+                        }
+                     }
+                     else{ /**Test si la case potentiellement voisine est dans un coin*/
+                        if(colonneCaseElem - 1 >= 0 && ligneCaseElem - 1 >= 0 && ligneCaseElem - 1 == ligneCaseVoisine && colonneCaseElem - 1 == colonneCaseVoisine){estVoisine = true;}
+                        if(ligneCaseElem + 1 <= this.nbLignes && ligneCaseElem + 1 == ligneCaseVoisine && colonneCaseElem + 1 <= this.nbColonnes && colonneCaseElem + 1 == colonneCaseVoisine){estVoisine = true;}
+                        if(colonneCaseElem - 1 >= 0 && colonneCaseElem - 1 == colonneCaseVoisine && ligneCaseElem + 1 <= this.nbLignes && ligneCaseElem + 1 == ligneCaseVoisine){estVoisine = true;}
+                        if(colonneCaseElem + 1 <= this.nbColonnes && colonneCaseElem + 1 == colonneCaseVoisine && ligneCaseElem - 1 >= 0 && ligneCaseElem - 1 == ligneCaseVoisine){estVoisine = true;}
+                     }
+                  }
+                  if(estVoisine){
+                     getCase(ligneCaseElem, colonneCaseElem).ajouteCaseVoisine(getCase(ligneCaseVoisine,colonneCaseVoisine));
+                  }
                }
-            }
+            } 
          }
       }
    }
