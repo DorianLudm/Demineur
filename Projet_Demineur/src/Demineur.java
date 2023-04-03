@@ -60,12 +60,23 @@ public class Demineur extends Plateau{
         System.out.println("JEU DU DÉMINEUR");
         int cpt_marques = 0;
         for (CaseIntelligente c : super.lePlateau){
-
+            System.out.println(c.toString());
         }
         System.out.println("Nombre de bombes : " + super.getNbTotalBombes());
         System.out.println("Nombre de cases marquées : ");
         System.out.println("Nombre de cases découvertes : ");
+        System.out.println("Entrez une instruction de la forme R 3 2 ou M 3 2 pour Révéler/Marquer la case à la ligne 3 et à la colonne 2 ");
         String instruction = input.nextLine();
+        String[] inst = instruction.split(" ");
+
+        for (int i = 0; i < inst.length; i++){
+            if (inst[i].equals("R")){
+                reveler(Integer.parseInt(inst[i+1]), Integer.parseInt(inst[i+2]));
+            }
+            else if (inst[i].equals("M")){
+                marquer(Integer.parseInt(inst[i+1]), Integer.parseInt(inst[i+2]));
+            }
+        }
     }
 
     public void nouvellePartie(){
