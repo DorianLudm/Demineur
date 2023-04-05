@@ -1,9 +1,10 @@
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
-public class Plateau {
-   private int nbLignes;
+public class Plateau{
+
+    private int nbLignes;
    private int nbColonnes;
    private int pourcentageDeBombes;
    private int nbBombes;
@@ -78,6 +79,15 @@ public class Plateau {
    public int getNbLignes(){return this.nbLignes;}
    public int getNbColonnes(){return this.nbColonnes;}
    public int getNbTotalBombes(){return this.nbBombes;}
+   public int getNbCasesMarquees(){
+      int res = 0;
+      for(CaseIntelligente caseElem: this.lePlateau){
+         if(caseElem.estMarquee()){
+            res += 1;
+         }
+      }
+      return res;
+   }
 
    public CaseIntelligente getCase(int numLigne, int numColonne){
       for (int i = 0; i < nbLignes; i++){
@@ -109,4 +119,5 @@ public class Plateau {
    public void reset(){
       creerLesCasesVides();
    }
+
 }
