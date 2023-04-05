@@ -14,8 +14,9 @@
             "type": "java",
             "name": "Executable",
             "request": "launch",
+            "vmArgs": "--module-path c:\\Users\\doria\\OneDrive\\Bureau\\GItHub\\openjfx-17.0.6_windows-x64_bin-sdk\\javafx-sdk-17.0.6\\lib\\ --add-modules javafx.controls,javafx.fxml",
             "mainClass": "Executable",
-            "projectName": "src_c43567ae"
+            "projectName": "Projet_Demineur_7d5c60d9"
         }
     ]
 }

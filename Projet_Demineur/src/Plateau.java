@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Plateau{
 
-    private int nbLignes;
+   private int nbLignes;
    private int nbColonnes;
    private int pourcentageDeBombes;
    private int nbBombes;
@@ -17,7 +17,7 @@ public class Plateau{
       this.lePlateau = new ArrayList<>();
    }
 
-   private void creerLesCasesVides(){
+   public void creerLesCasesVides(){
       int i = nbLignes;
       int j = nbColonnes;
       for (int k = 0; k < i*j-1; k++){
@@ -25,7 +25,7 @@ public class Plateau{
       }
    }
 
-   private void rendLesCasesIntelligentes(){
+   public void rendLesCasesIntelligentes(){
       for (int ligneCaseElem = 0; ligneCaseElem < this.nbLignes; ligneCaseElem++){
          for (int colonneCaseElem = 0; colonneCaseElem < this.nbLignes; colonneCaseElem++){
             for (int ligneCaseVoisine = 0; ligneCaseVoisine < this.nbLignes; ligneCaseVoisine++){
@@ -90,14 +90,8 @@ public class Plateau{
    }
 
    public CaseIntelligente getCase(int numLigne, int numColonne){
-      for (int i = 0; i < nbLignes; i++){
-         for (int j = 0; j < nbColonnes; j++){
-            if (i == numLigne){
-               if (j == numColonne){
-                  return this.lePlateau.get(i*nbColonnes+j);
-               }
-            }  
-         }
+      if(numLigne*this.nbColonnes+numColonne <= this.lePlateau.size()){
+         return this.lePlateau.get(numLigne*this.nbColonnes+numColonne);
       }
       return null;
    }
@@ -105,15 +99,7 @@ public class Plateau{
    public int getNbCases(){return this.lePlateau.size();}
 
    public void poseBombe(int x, int y){
-      for (int ligne = 0; ligne < nbLignes; ligne++){
-         for (int colonne = 0; colonne < nbColonnes; colonne++){
-            if (ligne == x){
-               if (colonne == y){
-                  lePlateau.get(ligne*nbColonnes+colonne).poseBombe();
-               }
-            }
-         }
-      }
+         getCase(x, y).poseBombe();
    }
 
    public void reset(){
