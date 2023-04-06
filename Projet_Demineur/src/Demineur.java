@@ -51,12 +51,11 @@ public class Demineur extends Plateau{
         return false;
     }
 
+    /**Permet de réinitialiser le jeu */
     public void reset(){
+        super.reset();
         this.gameOver = false;
         this.score = 0;
-        /**Plateau LePlateau = new Plateau(10, 10, 25);
-        LePlateau.creerLesCasesVides();
-        LePlateau.rendLesCasesIntelligentes();*/
     }
 
     public void affiche(){

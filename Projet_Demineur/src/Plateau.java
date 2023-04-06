@@ -15,12 +15,16 @@ public class Plateau{
       this.nbColonnes = nbColonnes;
       this.pourcentageDeBombes = pourcentage;
       this.lePlateau = new ArrayList<>();
+      this.nbBombes = 0;
+      creerLesCasesVides();
+      rendLesCasesIntelligentes();
+      poseDesBombesAleatoirement();
    }
 
    public void creerLesCasesVides(){
-      int i = nbLignes;
-      int j = nbColonnes;
-      for (int k = 0; k < i*j-1; k++){
+      int i = this.nbLignes;
+      int j = this.nbColonnes;
+      for (int k = 0; k < i*j; k++){
          this.lePlateau.add(new CaseIntelligente());
       }
    }
@@ -103,7 +107,9 @@ public class Plateau{
    }
 
    public void reset(){
-      creerLesCasesVides();
+      for (CaseIntelligente c : this.lePlateau){
+          c.reset();
+      }
+      this.nbBombes = 0;
    }
-
 }
