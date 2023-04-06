@@ -15,6 +15,10 @@ public class Case{
         this.estMarquee = false;
     }
 
+    public void pasUneBombe(){
+        this.contientUneBombe = false;
+    }
+
     public void poseBombe(){
         this.contientUneBombe = true;
     }

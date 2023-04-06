@@ -13,13 +13,43 @@ public class Demineur extends Plateau{
 
     public int getScore(){return this.score;}
 
+    public boolean plateauNonRevele(){
+        for (int i = 0; i < lePlateau.size(); i++){
+            if (lePlateau.get(i).estDecouverte()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void premiereCaseRevelee(int x, int y){
+        CaseIntelligente c = this.getCase(x, y);
+        c.pasDeBombesVoisines();
+        c.pasUneBombe();
+        c.reveler();
+        this.getCase(x-1, y).reveler();
+        this.getCase(x+1, y).reveler();
+        this.getCase(x-1, y-1).reveler();
+        this.getCase(x+1, y+1).reveler();
+        this.getCase(x-1, y+1).reveler();
+        this.getCase(x+1, y-1).reveler();
+        this.getCase(x, y-1).reveler();
+        this.getCase(x, y+1).reveler();
+    }
+
     /**Révèle une case si et seulement si elle n'est pas marquée ou révélée
      * @param x le X de la case à révéler
      * @param y le Y de la case à révéler
     */
     public void reveler(int x, int y){
         CaseIntelligente laCase = this.getCase(x,y);
-        if(!laCase.estMarquee()){
+        boolean jeuDebute = plateauNonRevele();
+
+        if (jeuDebute){
+            premiereCaseRevelee(x, y);
+        }
+
+        else if(!laCase.estMarquee()){
             if(laCase.contientUneBombe()){
                 this.gameOver = true;
             }
