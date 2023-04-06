@@ -15,7 +15,13 @@ public class Demineur extends Plateau{
 
     public void reveler(int x, int y){
         int caseAReveler = x*super.getNbColonnes()+y;
-        super.lePlateau.get(caseAReveler).reveler();
+        CaseIntelligente LaCase = super.lePlateau.get(caseAReveler);
+        LaCase.reveler();
+        for(Case caseToReveal: LaCase.getCasesVoisines()){
+            if(!caseToReveal.contientUneBombe()){
+                caseToReveal.reveler();
+            }
+        }
     }
 
     public void marquer(int x, int y){

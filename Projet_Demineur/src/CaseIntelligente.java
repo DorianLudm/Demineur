@@ -30,6 +30,10 @@ public class CaseIntelligente extends Case{
         return nb;
     }
 
+    public List<Case> getCasesVoisines(){
+        return this.lesVoisines;
+    }
+
     /**Renvoie les informations de la case sous forme de String
      * @return res (String), les informations mise sous forme de phrase
      */
