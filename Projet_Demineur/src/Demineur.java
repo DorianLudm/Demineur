@@ -20,8 +20,12 @@ public class Demineur extends Plateau{
 
     public void marquer(int x, int y){
         int caseAMarquer = x*super.getNbColonnes()+y;
-        super.lePlateau.get(caseAMarquer).marquer();
-
+        if (super.lePlateau.get(caseAMarquer).estMarquee()){
+            super.lePlateau.get(caseAMarquer).demarquer();
+        }
+        else{
+            super.lePlateau.get(caseAMarquer).marquer();
+        }
     }
 
     public boolean estGagnee(){
@@ -128,7 +132,7 @@ public class Demineur extends Plateau{
             System.out.println("Oh !!! Vous avez perdu !");
         }
         else{
-            System.out.println("Bravo !! Vous avez gagné !");
+            System.out.println("Bravo !! Vous avez gagné !");   
         }
     }
 }

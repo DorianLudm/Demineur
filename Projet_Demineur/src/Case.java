@@ -42,4 +42,8 @@ public class Case{
     public void marquer(){
         this.estMarquee = true;
     }
+
+    public void demarquer(){
+        this.estMarquee = false;
+    }
 }

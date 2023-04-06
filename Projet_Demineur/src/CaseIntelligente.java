@@ -35,12 +35,10 @@ public class CaseIntelligente extends Case{
      */
     @Override
     public String toString(){
-        String res = "";
-        if (this.estMarquee()){res = "?";}
-        if (!this.estDecouverte()){res = " ";}
-        if (this.contientUneBombe()){res = "@";}
-        if (this.nombreBombesVoisines() == 0){res = "0";}
-        res = String.valueOf(this.nombreBombesVoisines());
-        return res;
+        if (!this.estDecouverte()){return " ";}
+        if (this.estMarquee()){return "?";}
+        if (this.contientUneBombe()){return "@";}
+        if (this.nombreBombesVoisines() == 0){return "0";}
+        return String.valueOf(this.nombreBombesVoisines());
     }
 }
