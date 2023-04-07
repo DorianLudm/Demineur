@@ -17,14 +17,6 @@ public class CaseIntelligente extends Case{
         this.lesVoisines.add(lacase);
     }
 
-    public int pasDeBombesVoisines(){
-        int nb = 0;
-        for (Case c : this.lesVoisines){
-            c.pasUneBombe();
-        }
-        return nb;
-    }
-
     /**Renvoie le nombre de bombes dans les cases voisines
      * @return nb (int), le nombre de case voisines qui possède une bombe
      */
