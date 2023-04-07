@@ -5,17 +5,29 @@ public class Demineur extends Plateau{
     private boolean gameOver;
     private int score;
 
+    /**
+     * Constructeur de la classe Demineur
+     * @param nbLignes le nombre de ligne du plateau du jeu
+     * @param nbColonnes le nombre de colonnes du plateau du jeu
+     * @param pourcentage le pourcentage de bombes qui seront dispersées dans le plateau
+     */
     public Demineur(int nbLignes, int nbColonnes, int pourcentage){
         super(nbLignes, nbColonnes, pourcentage);
         this.gameOver = false;
         this.score = 0;
     }
 
-    public int getScore(){return this.score;}
+    /**
+     * Permet de retourner le score actuel de la partie
+     * @return la valeur en entier du score actuel
+     */
+    public int getScore(){
+        return this.score;
+    }
 
     /**Révèle une case si et seulement si elle n'est pas marquée ou révélée
-     * @param x le X de la case à révéler
-     * @param y le Y de la case à révéler
+     * @param x la position X de la case à révéler
+     * @param y la position Y de la case à révéler
     */
     public void reveler(int x, int y){
         CaseIntelligente laCase = this.getCase(x,y);
@@ -62,9 +74,19 @@ public class Demineur extends Plateau{
         }
     }
 
+    /**
+     * Incrémente le score en fonction du nombre passé en paramètre
+     * @param nb 
+     */
     public void ajouterScore(int nb){
         this.score += nb;
     }
+
+    /**
+     * Permet au joueur de marquer une case qu'il pense être une bombe
+     * @param x la position x de la case ciblée
+     * @param y la position y de la case ciblée
+     */
     public void marquer(int x, int y){
         int caseAMarquer = x*super.getNbColonnes()+y;
         if (super.lePlateau.get(caseAMarquer).estMarquee()){
@@ -75,6 +97,10 @@ public class Demineur extends Plateau{
         }
     }
 
+    /**
+     * Gère la partie lorsqu'elle est gagnée, donc si le joueur a marqué toutes les bombes
+     * @return true si la partie est gagnée, false sinon
+     */
     public boolean estGagnee(){
         for(CaseIntelligente CaseElem: super.lePlateau){
             if(CaseElem.contientUneBombe()){
@@ -91,6 +117,10 @@ public class Demineur extends Plateau{
         return true;
     }
     
+    /**
+     * Gère la partie lorsqu'elle est perdue, donc si le joueur révèle une bombe
+     * @return true si al partie est perdue, false sinon
+     */
     public boolean estPerdue(){
         for(CaseIntelligente CaseElem: super.lePlateau){
             if(CaseElem.contientUneBombe()){
@@ -109,6 +139,7 @@ public class Demineur extends Plateau{
         this.score = 0;
     }
 
+    /**Gère l'affichage du jeu du démineur dans le terminal */
     public void affiche(){
         System.out.println("JEU DU DEMINEUR");
         // affichage de la bordure supérieure
@@ -156,7 +187,7 @@ public class Demineur extends Plateau{
         System.out.println("Score : " + this.getScore());
     }
 
-    
+    /**Permet de lancer une nouvelle partie */
     public void nouvellePartie(){
         this.reset();
         this.poseDesBombesAleatoirement();

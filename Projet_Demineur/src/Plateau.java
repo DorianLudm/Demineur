@@ -10,6 +10,12 @@ public class Plateau{
    private int nbBombes;
    protected List<CaseIntelligente> lePlateau;
 
+   /**
+    * Constructeur de la classe Plateau
+    * @param nbLignes le nombre de lignes du plateau
+    * @param nbColonnes le nombre de colonnes du plateau
+    * @param pourcentage le pourcentage de bombes qui vont être dispersées sur le plateau
+    */
    public Plateau(int nbLignes, int nbColonnes, int pourcentage){
       this.nbLignes = nbLignes;
       this.nbColonnes = nbColonnes;
@@ -21,10 +27,15 @@ public class Plateau{
       poseDesBombesAleatoirement();
    }
 
+   /**
+    * Permet de changer le nombre de bombes que l'on souhaite disperser sur le plateau
+    * @param nb
+    */
    public void changeNbBombes(int nb){
       this.nbBombes += nb;
    }
 
+   /**Permet de créer un plateau avec seulement des cases vides */
    public void creerLesCasesVides(){
       int i = this.nbLignes;
       int j = this.nbColonnes;
@@ -33,6 +44,9 @@ public class Plateau{
       }
    }
 
+   /**Permet de rendre chaque case du plateau "intelligente"
+    * Cela veut surtout dire que pour chaque case, nous allons pouvoir connaitre leurs voisines
+    */
    public void rendLesCasesIntelligentes(){
       for (int ligneCaseElem = 0; ligneCaseElem < this.nbLignes; ligneCaseElem++){
          for (int colonneCaseElem = 0; colonneCaseElem < this.nbLignes; colonneCaseElem++){
@@ -72,6 +86,7 @@ public class Plateau{
       }
    }
 
+   /**Permet de disperser les bombes de façon aléatoire sur le plateau */
    protected void poseDesBombesAleatoirement(){
         Random generateur = new Random();
         for (int x = 0; x < this.getNbLignes(); x++){
@@ -84,9 +99,34 @@ public class Plateau{
         }
     }
 
-   public int getNbLignes(){return this.nbLignes;}
-   public int getNbColonnes(){return this.nbColonnes;}
-   public int getNbTotalBombes(){return this.nbBombes;}
+    /**
+     * Permet de récupérer le nombre de lignes du plateau
+     * @return la valeur en entier de la hauteur du plateau
+     */
+   public int getNbLignes(){
+      return this.nbLignes;
+   }
+
+   /**
+    * Permet de récupérer le nombre de colonnes du plateau
+    * @return la valeur en entier de la largeur du plateau
+    */
+   public int getNbColonnes(){
+      return this.nbColonnes;
+   }
+
+   /**
+    * Permet de récupérer le nombre total de bombes présentes dans le plateau
+    * @return l'entier représentant le total des bombes posées sur le plateau
+    */
+   public int getNbTotalBombes(){
+      return this.nbBombes;
+   }
+
+   /**
+    * Permet de récupérer le nombre de cases qui ont été marquées par le joueur
+    * @return l'entier représentant le nombre total des cases qui ont été marquées
+    */
    public int getNbCasesMarquees(){
       int res = 0;
       for(CaseIntelligente caseElem: this.lePlateau){
@@ -97,6 +137,10 @@ public class Plateau{
       return res;
    }
 
+   /**
+    * Permet de récupérer le nombre de cases qui ont été découvertes par le joueur
+    * @return l'entier représentant le nombre total de cases qui ont été découvertes
+    */
    public int getNbCasesDecouverte(){
       int res = 0;
       for(CaseIntelligente caseElem: this.lePlateau){
@@ -107,6 +151,12 @@ public class Plateau{
       return res;
    }
 
+   /**
+    * Permet de récupérer une case spécifique
+    * @param numLigne le numéro de ligne de la case ciblée
+    * @param numColonne le numéro de colone de la case ciblée
+    * @return la case ciblée
+    */
    public CaseIntelligente getCase(int numLigne, int numColonne){
       if(numLigne*this.nbColonnes+numColonne <= this.lePlateau.size()){
          return this.lePlateau.get(numLigne*this.nbColonnes+numColonne);
@@ -114,15 +164,27 @@ public class Plateau{
       return null;
    }
 
-   public int getNbCases(){return this.lePlateau.size();}
-
-   public void poseBombe(int x, int y){
-         getCase(x, y).poseBombe();
+   /**
+    * Permet de récupérer le nombre total de cases du plateau
+    * @return l'entier représentant le nombre de cases du plateau
+    */
+   public int getNbCases(){
+      return this.lePlateau.size();
    }
 
+   /**
+    * Permet de poser une bombe sur une case spécifique
+    * @param x la position en x de la case ciblée
+    * @param y la position en y de la case ciblée
+    */
+   public void poseBombe(int x, int y){
+      getCase(x, y).poseBombe();
+   }
+
+   /**Permet de reset le plateau */
    public void reset(){
       for (CaseIntelligente c : this.lePlateau){
-          c.reset();
+         c.reset();
       }
       this.nbBombes = 0;
    }

@@ -4,7 +4,7 @@ import java.util.List;
 public class CaseIntelligente extends Case{
     private List<Case> lesVoisines;
 
-    /**Constructeur de la classe*/
+    /**Constructeur de la classe CaseIntelligente*/
     public CaseIntelligente(){
         super();
         this.lesVoisines = new ArrayList<>();
@@ -30,6 +30,10 @@ public class CaseIntelligente extends Case{
         return nb;
     }
 
+    /**
+     * Permet de récupérer les cases qui sont voisines à notre case
+     * @return la liste de toutes les voisines de notre case
+     */
     public List<Case> getCasesVoisines(){
         return this.lesVoisines;
     }
