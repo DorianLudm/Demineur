@@ -1,7 +1,9 @@
-public class Executable {
-    public static void main(String[] args) {
-        Plateau plateau = new Plateau(5, 4, 0);
+import javafx.application.Application;
 
-        System.out.println(plateau.creerLesCasesVides());
+public class Executable{
+
+    public static void main(String [] args){
+        // paramètres : nb_lignes=10, nb_colonnes = 10, pourcentage bombres = 20;        
+        Application.launch(DemineurGraphique.class, "10", "12", "15");
     }
 }

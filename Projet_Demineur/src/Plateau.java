@@ -1,27 +1,26 @@
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
-public class Plateau {
+public class Plateau{
+
    private int nbLignes;
    private int nbColonnes;
    private int pourcentageDeBombes;
    private int nbBombes;
-   private List<CaseIntelligente> lePlateau;
+   protected List<CaseIntelligente> lePlateau;
 
    public Plateau(int nbLignes, int nbColonnes, int pourcentage){
       this.nbLignes = nbLignes;
       this.nbColonnes = nbColonnes;
       this.pourcentageDeBombes = pourcentage;
       this.lePlateau = new ArrayList<>();
+      this.nbBombes = 0;
+      creerLesCasesVides();
+      rendLesCasesIntelligentes();
+      poseDesBombesAleatoirement();
    }
 
-<<<<<<< Updated upstream
-   private void creerLesCasesVides(){
-      int i = nbLignes;
-      int j = nbColonnes;
-      for (int k = 0; k < i*j-1; k++){
-=======
    public void changeNbBombes(int nb){
       this.nbBombes += nb;
    }
@@ -30,19 +29,45 @@ public class Plateau {
       int i = this.nbLignes;
       int j = this.nbColonnes;
       for (int k = 0; k < i*j; k++){
->>>>>>> Stashed changes
          this.lePlateau.add(new CaseIntelligente());
       }
    }
 
-   private void rendLesCasesIntelligentes(){
-      for (int ligne = 0; ligne < nbLignes; ligne++){
-         for (int colonne = 0; colonne < nbColonnes; colonne++){
-            for (int ligneC = 0; ligneC < nbLignes; ligneC++){
-               for (int colonneC = 0; colonneC < nbColonnes; colonneC++){
-                  
+   public void rendLesCasesIntelligentes(){
+      for (int ligneCaseElem = 0; ligneCaseElem < this.nbLignes; ligneCaseElem++){
+         for (int colonneCaseElem = 0; colonneCaseElem < this.nbLignes; colonneCaseElem++){
+            for (int ligneCaseVoisine = 0; ligneCaseVoisine < this.nbLignes; ligneCaseVoisine++){
+               for (int colonneCaseVoisine = 0; colonneCaseVoisine < this.nbLignes; colonneCaseVoisine++){
+                  boolean estVoisine = false;
+                  if(ligneCaseElem == ligneCaseVoisine){ /**Test si les deux cases sont sur la même ligne*/
+                     if(colonneCaseElem - 1 >= 0 && colonneCaseElem - 1 == colonneCaseVoisine){
+                        estVoisine = true;
+                     }
+                     if(colonneCaseElem + 1 <= this.nbColonnes && colonneCaseElem + 1 == colonneCaseVoisine){
+                        estVoisine = true;
+                     }
+                  }
+                  else{
+                     if(colonneCaseElem == colonneCaseVoisine){ /**Test si les deux cases sont sur la même colonne*/
+                        if(ligneCaseElem - 1 >= 0 && ligneCaseElem - 1 == ligneCaseVoisine){
+                           estVoisine = true;
+                        }
+                        if(ligneCaseElem + 1 <= this.nbLignes && ligneCaseElem + 1 == ligneCaseVoisine){
+                           estVoisine = true;
+                        }
+                     }
+                     else{ /**Test si la case potentiellement voisine est dans un coin*/
+                        if(colonneCaseElem - 1 >= 0 && ligneCaseElem - 1 >= 0 && ligneCaseElem - 1 == ligneCaseVoisine && colonneCaseElem - 1 == colonneCaseVoisine){estVoisine = true;}
+                        if(ligneCaseElem + 1 <= this.nbLignes && ligneCaseElem + 1 == ligneCaseVoisine && colonneCaseElem + 1 <= this.nbColonnes && colonneCaseElem + 1 == colonneCaseVoisine){estVoisine = true;}
+                        if(colonneCaseElem - 1 >= 0 && colonneCaseElem - 1 == colonneCaseVoisine && ligneCaseElem + 1 <= this.nbLignes && ligneCaseElem + 1 == ligneCaseVoisine){estVoisine = true;}
+                        if(colonneCaseElem + 1 <= this.nbColonnes && colonneCaseElem + 1 == colonneCaseVoisine && ligneCaseElem - 1 >= 0 && ligneCaseElem - 1 == ligneCaseVoisine){estVoisine = true;}
+                     }
+                  }
+                  if(estVoisine){
+                     getCase(ligneCaseElem, colonneCaseElem).ajouteCaseVoisine(getCase(ligneCaseVoisine,colonneCaseVoisine));
+                  }
                }
-            }
+            } 
          }
       }
    }
@@ -62,6 +87,15 @@ public class Plateau {
    public int getNbLignes(){return this.nbLignes;}
    public int getNbColonnes(){return this.nbColonnes;}
    public int getNbTotalBombes(){return this.nbBombes;}
+   public int getNbCasesMarquees(){
+      int res = 0;
+      for(CaseIntelligente caseElem: this.lePlateau){
+         if(caseElem.estMarquee()){
+            res += 1;
+         }
+      }
+      return res;
+   }
 
    public int getNbCasesDecouverte(){
       int res = 0;
@@ -74,14 +108,8 @@ public class Plateau {
    }
 
    public CaseIntelligente getCase(int numLigne, int numColonne){
-      for (int i = 0; i < nbLignes; i++){
-         for (int j = 0; j < nbColonnes; j++){
-            if (i == numLigne){
-               if (j == numColonne){
-                  return this.lePlateau.get(i*nbColonnes+j);
-               }
-            }  
-         }
+      if(numLigne*this.nbColonnes+numColonne <= this.lePlateau.size()){
+         return this.lePlateau.get(numLigne*this.nbColonnes+numColonne);
       }
       return null;
    }
@@ -89,18 +117,13 @@ public class Plateau {
    public int getNbCases(){return this.lePlateau.size();}
 
    public void poseBombe(int x, int y){
-      for (int ligne = 0; ligne < nbLignes; ligne++){
-         for (int colonne = 0; colonne < nbColonnes; colonne++){
-            if (ligne == x){
-               if (colonne == y){
-                  lePlateau.get(ligne*nbColonnes+colonne).poseBombe();
-               }
-            }
-         }
-      }
+         getCase(x, y).poseBombe();
    }
 
    public void reset(){
-      creerLesCasesVides();
+      for (CaseIntelligente c : this.lePlateau){
+          c.reset();
+      }
+      this.nbBombes = 0;
    }
 }

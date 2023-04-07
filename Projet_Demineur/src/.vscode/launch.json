@@ -1,0 +1,30 @@
+{
+    // Utilisez IntelliSense pour en savoir plus sur les attributs possibles.
+    // Pointez pour afficher la description des attributs existants.
+    // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Executable",
+            "request": "launch",
+            "mainClass": "Executable",
+            "projectName": "src_c43567ae"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "vmArgs": "--module-path /home/plumatachi/openjfx/javafx-sdk-17.0.6/lib/ --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Executable",
+            "request": "launch",
+            "mainClass": "Executable",
+            "vmArgs": "--module-path /home/plumatachi/openjfx/javafx-sdk-17.0.6/lib/ --add-modules javafx.controls,javafx.fxml",
+            "projectName": "src_4c1b8aac"
+        }
+    ]
+}
