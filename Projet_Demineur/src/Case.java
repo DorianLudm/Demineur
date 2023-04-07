@@ -23,6 +23,10 @@ public class Case{
         return this.contientUneBombe;
     }
 
+    public void demine(){
+        this.contientUneBombe = false ;
+    }
+
     public boolean estDecouverte(){
         return this.estDecouverte;
     }

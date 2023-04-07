@@ -16,10 +16,21 @@ public class Plateau {
       this.lePlateau = new ArrayList<>();
    }
 
+<<<<<<< Updated upstream
    private void creerLesCasesVides(){
       int i = nbLignes;
       int j = nbColonnes;
       for (int k = 0; k < i*j-1; k++){
+=======
+   public void changeNbBombes(int nb){
+      this.nbBombes += nb;
+   }
+
+   public void creerLesCasesVides(){
+      int i = this.nbLignes;
+      int j = this.nbColonnes;
+      for (int k = 0; k < i*j; k++){
+>>>>>>> Stashed changes
          this.lePlateau.add(new CaseIntelligente());
       }
    }
@@ -51,6 +62,16 @@ public class Plateau {
    public int getNbLignes(){return this.nbLignes;}
    public int getNbColonnes(){return this.nbColonnes;}
    public int getNbTotalBombes(){return this.nbBombes;}
+
+   public int getNbCasesDecouverte(){
+      int res = 0;
+      for(CaseIntelligente caseElem: this.lePlateau){
+         if(caseElem.estDecouverte()){
+            res += 1;
+         }
+      }
+      return res;
+   }
 
    public CaseIntelligente getCase(int numLigne, int numColonne){
       for (int i = 0; i < nbLignes; i++){
