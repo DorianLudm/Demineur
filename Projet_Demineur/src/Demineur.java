@@ -13,48 +13,25 @@ public class Demineur extends Plateau{
 
     public int getScore(){return this.score;}
 
-    public boolean plateauNonRevele(){
-        for (int i = 0; i < lePlateau.size(); i++){
-            if (lePlateau.get(i).estDecouverte()){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void premiereCaseRevelee(int x, int y){
-        CaseIntelligente c = this.getCase(x, y);
-        c.pasDeBombesVoisines();
-        c.pasUneBombe();
-        c.reveler();
-        this.getCase(x-1, y).reveler();
-        this.getCase(x+1, y).reveler();
-        this.getCase(x-1, y-1).reveler();
-        this.getCase(x+1, y+1).reveler();
-        this.getCase(x-1, y+1).reveler();
-        this.getCase(x+1, y-1).reveler();
-        this.getCase(x, y-1).reveler();
-        this.getCase(x, y+1).reveler();
-    }
-
     /**Révèle une case si et seulement si elle n'est pas marquée ou révélée
      * @param x le X de la case à révéler
      * @param y le Y de la case à révéler
     */
     public void reveler(int x, int y){
         CaseIntelligente laCase = this.getCase(x,y);
-        boolean jeuDebute = plateauNonRevele();
-
-        if (jeuDebute){
-            premiereCaseRevelee(x, y);
+        if(super.getNbCasesDecouverte() == 0){
+            if(laCase.contientUneBombe()){
+                /**Enlever la bombe de la case et enlever 1 à l'attribute nb bombe */
+                laCase.demine();
+                super.changeNbBombes(-1);
+            }
         }
-
-        else if(!laCase.estMarquee()){
+        if(!laCase.estMarquee()){
             if(laCase.contientUneBombe()){
                 this.gameOver = true;
             }
             laCase.reveler();
-            this.score++;
+            ajouterScore(1000);
             // Si la case ne contient pas de bombe, on révèle ses voisines et si ses voisines n'en ont pas non plus, on révèle leurs voisines
             if (laCase.nombreBombesVoisines()==0 && !laCase.contientUneBombe()){
                 if (x>0 && !this.getCase(x-1, y).estDecouverte() && !this.getCase(x-1, y).estMarquee() && !this.getCase(x-1, y).contientUneBombe()){
@@ -81,13 +58,13 @@ public class Demineur extends Plateau{
                 if (x<this.getNbLignes()-1 && y<this.getNbColonnes()-1 && !this.getCase(x+1, y+1).estDecouverte() && !this.getCase(x+1, y+1).estMarquee() && !this.getCase(x+1, y+1).contientUneBombe()){
                     this.reveler(x+1, y+1);
                 }
-                
-
             }
-
-        }     
+        }
     }
 
+    public void ajouterScore(int nb){
+        this.score += nb;
+    }
     public void marquer(int x, int y){
         int caseAMarquer = x*super.getNbColonnes()+y;
         if (super.lePlateau.get(caseAMarquer).estMarquee()){
@@ -140,7 +117,7 @@ public class Demineur extends Plateau{
             System.out.print("  "+j+" ");
         }
         System.out.print(" \n");
-        
+
         // affichage des numéros de ligne + cases
         System.out.print("  ┌");
         for (int j=0; j<this.getNbColonnes()-1; j++){

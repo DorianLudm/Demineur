@@ -15,20 +15,12 @@ public class Case{
         this.estMarquee = false;
     }
 
-    public void pasUneBombe(){
-        this.contientUneBombe = false;
-    }
-
     public void poseBombe(){
         this.contientUneBombe = true;
     }
 
     public boolean contientUneBombe(){
         return this.contientUneBombe;
-    }
-
-    public void demine(){
-        this.contientUneBombe = false ;
     }
 
     public boolean estDecouverte(){
@@ -49,9 +41,5 @@ public class Case{
 
     public void marquer(){
         this.estMarquee = true;
-    }
-
-    public void demarquer(){
-        this.estMarquee = false;
     }
 }

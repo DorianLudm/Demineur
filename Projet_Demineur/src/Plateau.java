@@ -21,6 +21,10 @@ public class Plateau{
       poseDesBombesAleatoirement();
    }
 
+   public void changeNbBombes(int nb){
+      this.nbBombes += nb;
+   }
+
    public void creerLesCasesVides(){
       int i = this.nbLignes;
       int j = this.nbColonnes;
@@ -87,6 +91,16 @@ public class Plateau{
       int res = 0;
       for(CaseIntelligente caseElem: this.lePlateau){
          if(caseElem.estMarquee()){
+            res += 1;
+         }
+      }
+      return res;
+   }
+
+   public int getNbCasesDecouverte(){
+      int res = 0;
+      for(CaseIntelligente caseElem: this.lePlateau){
+         if(caseElem.estDecouverte()){
             res += 1;
          }
       }

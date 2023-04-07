@@ -30,19 +30,17 @@ public class CaseIntelligente extends Case{
         return nb;
     }
 
-    public List<Case> getCasesVoisines(){
-        return this.lesVoisines;
-    }
-
     /**Renvoie les informations de la case sous forme de String
      * @return res (String), les informations mise sous forme de phrase
      */
     @Override
     public String toString(){
-        if (this.estMarquee()){return "?";}
-        if (!this.estDecouverte()){return " ";}
-        if (this.contientUneBombe()){return "@";}
-        if (this.nombreBombesVoisines() == 0){return "0";}
-        return String.valueOf(this.nombreBombesVoisines());
+        String res = "";
+        if (this.estMarquee()){res = "?";}
+        if (!this.estDecouverte()){res = " ";}
+        if (this.contientUneBombe()){res = "@";}
+        if (this.nombreBombesVoisines() == 0){res = "0";}
+        res = String.valueOf(this.nombreBombesVoisines());
+        return res;
     }
 }
