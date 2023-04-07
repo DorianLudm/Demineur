@@ -26,44 +26,45 @@ public class Demineur extends Plateau{
                 super.changeNbBombes(-1);
             }
         }
-        //else{
-            if(!laCase.estMarquee()){
-                if(laCase.contientUneBombe()){
-                    this.gameOver = true;
+        if(!laCase.estMarquee()){
+            if(laCase.contientUneBombe()){
+                this.gameOver = true;
+            }
+            laCase.reveler();
+            ajouterScore(1000);
+            // Si la case ne contient pas de bombe, on révèle ses voisines et si ses voisines n'en ont pas non plus, on révèle leurs voisines
+            if (laCase.nombreBombesVoisines()==0 && !laCase.contientUneBombe()){
+                if (x>0 && !this.getCase(x-1, y).estDecouverte() && !this.getCase(x-1, y).estMarquee() && !this.getCase(x-1, y).contientUneBombe()){
+                    this.reveler(x-1, y);
                 }
-                laCase.reveler();
-                this.score++;
-                // Si la case ne contient pas de bombe, on révèle ses voisines et si ses voisines n'en ont pas non plus, on révèle leurs voisines
-                if (laCase.nombreBombesVoisines()==0 && !laCase.contientUneBombe()){
-                    if (x>0 && !this.getCase(x-1, y).estDecouverte() && !this.getCase(x-1, y).estMarquee() && !this.getCase(x-1, y).contientUneBombe()){
-                        this.reveler(x-1, y);
-                    }
-                    if (x<this.getNbLignes()-1 && !this.getCase(x+1, y).estDecouverte() && !this.getCase(x+1, y).estMarquee() && !this.getCase(x+1, y).contientUneBombe()){
-                        this.reveler(x+1, y);
-                    }
-                    if (y>0 && !this.getCase(x, y-1).estDecouverte() && !this.getCase(x, y-1).estMarquee() && !this.getCase(x, y-1).contientUneBombe()){
-                        this.reveler(x, y-1);
-                    }
-                    if (y<this.getNbColonnes()-1 && !this.getCase(x, y+1).estDecouverte() && !this.getCase(x, y+1).estMarquee() && !this.getCase(x, y+1).contientUneBombe()){
-                        this.reveler(x, y+1);
-                    }
-                    if (x>0 && y>0 && !this.getCase(x-1, y-1).estDecouverte() && !this.getCase(x-1, y-1).estMarquee() && !this.getCase(x-1, y-1).contientUneBombe()){
-                        this.reveler(x-1, y-1);
-                    }
-                    if (x>0 && y<this.getNbColonnes()-1 && !this.getCase(x-1, y+1).estDecouverte() && !this.getCase(x-1, y+1).estMarquee() && !this.getCase(x-1, y+1).contientUneBombe()){
-                        this.reveler(x-1, y+1);
-                    }
-                    if (x<this.getNbLignes()-1 && y>0 && !this.getCase(x+1, y-1).estDecouverte() && !this.getCase(x+1, y-1).estMarquee() && !this.getCase(x+1, y-1).contientUneBombe()){
-                        this.reveler(x+1, y-1);
-                    }
-                    if (x<this.getNbLignes()-1 && y<this.getNbColonnes()-1 && !this.getCase(x+1, y+1).estDecouverte() && !this.getCase(x+1, y+1).estMarquee() && !this.getCase(x+1, y+1).contientUneBombe()){
-                        this.reveler(x+1, y+1);
-                    }
+                if (x<this.getNbLignes()-1 && !this.getCase(x+1, y).estDecouverte() && !this.getCase(x+1, y).estMarquee() && !this.getCase(x+1, y).contientUneBombe()){
+                    this.reveler(x+1, y);
+                }
+                if (y>0 && !this.getCase(x, y-1).estDecouverte() && !this.getCase(x, y-1).estMarquee() && !this.getCase(x, y-1).contientUneBombe()){
+                    this.reveler(x, y-1);
+                }
+                if (y<this.getNbColonnes()-1 && !this.getCase(x, y+1).estDecouverte() && !this.getCase(x, y+1).estMarquee() && !this.getCase(x, y+1).contientUneBombe()){
+                    this.reveler(x, y+1);
+                }
+                if (x>0 && y>0 && !this.getCase(x-1, y-1).estDecouverte() && !this.getCase(x-1, y-1).estMarquee() && !this.getCase(x-1, y-1).contientUneBombe()){
+                    this.reveler(x-1, y-1);
+                }
+                if (x>0 && y<this.getNbColonnes()-1 && !this.getCase(x-1, y+1).estDecouverte() && !this.getCase(x-1, y+1).estMarquee() && !this.getCase(x-1, y+1).contientUneBombe()){
+                    this.reveler(x-1, y+1);
+                }
+                if (x<this.getNbLignes()-1 && y>0 && !this.getCase(x+1, y-1).estDecouverte() && !this.getCase(x+1, y-1).estMarquee() && !this.getCase(x+1, y-1).contientUneBombe()){
+                    this.reveler(x+1, y-1);
+                }
+                if (x<this.getNbLignes()-1 && y<this.getNbColonnes()-1 && !this.getCase(x+1, y+1).estDecouverte() && !this.getCase(x+1, y+1).estMarquee() && !this.getCase(x+1, y+1).contientUneBombe()){
+                    this.reveler(x+1, y+1);
                 }
             }
-        //}
+        }
     }
 
+    public void ajouterScore(int nb){
+        this.score += nb;
+    }
     public void marquer(int x, int y){
         int caseAMarquer = x*super.getNbColonnes()+y;
         if (super.lePlateau.get(caseAMarquer).estMarquee()){
